@@ -140,7 +140,7 @@ export default function HomePage() {
           </div>
           <div className={styles.heroVisual} aria-hidden="false">
             <img
-              src="/sto-hero.svg"
+              src="./sto-hero.svg"
               alt="Механик «АвтоПульс» проводит диагностику автомобиля на подъёмнике"
               width={520}
               height={420}

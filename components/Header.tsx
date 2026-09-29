@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        <a href="/" className={styles.brand} aria-label="АвтоПульс — на главную">
+        <a href="./" className={styles.brand} aria-label="АвтоПульс — на главную">
           <span className={styles.logo} aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" />
