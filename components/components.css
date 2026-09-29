@@ -1,0 +1,114 @@
+/* АвтоПульс — тёмная тема для интерактивов. Только CSS-переменные, без зависимости от layout. */
+:root {
+  --ap-bg: #0f1216;
+  --ap-surface: #171c22;
+  --ap-surface-2: #1f262e;
+  --ap-border: #2c3540;
+  --ap-text: #f2f5f7;
+  --ap-muted: #a7b1bb;
+  --ap-accent: #ffb020;
+  --ap-accent-text: #1a1200;
+  --ap-danger: #ff6b6b;
+  --ap-focus: #7cc4ff;
+  --ap-radius: 12px;
+}
+
+.ap-block {
+  background: var(--ap-surface);
+  border: 1px solid var(--ap-border);
+  border-radius: var(--ap-radius);
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--ap-text);
+}
+
+.ap-block h2 { margin: 0 0 0.25rem; }
+.ap-muted { color: var(--ap-muted); }
+.ap-error { color: var(--ap-danger); margin: 0.25rem 0 0; }
+
+.ap-fieldset { border: 1px solid var(--ap-border); border-radius: var(--ap-radius); padding: 1rem; margin: 1rem 0; }
+.ap-fieldset legend { padding: 0 0.5rem; }
+
+.ap-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ap-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid var(--ap-border); border-radius: 999px;
+  padding: 0.5rem 0.9rem; cursor: pointer; background: var(--ap-surface-2);
+}
+.ap-chip--active { border-color: var(--ap-accent); }
+.ap-visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+
+.ap-servicelist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.ap-service {
+  display: flex; align-items: center; gap: 0.75rem;
+  border: 1px solid var(--ap-border); border-radius: var(--ap-radius);
+  padding: 0.6rem 0.8rem; cursor: pointer; background: var(--ap-surface-2);
+}
+.ap-service--active { border-color: var(--ap-accent); }
+.ap-service__main { display: flex; flex-direction: column; flex: 1; }
+
+.ap-result {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  border-top: 1px solid var(--ap-border); margin-top: 1rem; padding-top: 1rem; flex-wrap: wrap;
+}
+.ap-total { font-size: 1.6rem; font-weight: 800; }
+
+.ap-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--ap-accent); color: var(--ap-accent-text);
+  border: 1px solid transparent; border-radius: 10px;
+  padding: 0.65rem 1.1rem; font-weight: 700; text-decoration: none; cursor: pointer;
+}
+.ap-btn--ghost { background: transparent; color: var(--ap-text); border-color: var(--ap-border); }
+
+.ap-form { display: grid; gap: 0.9rem; margin-top: 1rem; }
+.ap-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+@media (max-width: 640px) { .ap-grid2 { grid-template-columns: 1fr; } }
+.ap-field { display: grid; gap: 0.35rem; }
+.ap-field label { font-weight: 600; }
+.ap-field input, .ap-field select, .ap-field textarea {
+  background: var(--ap-surface-2); color: var(--ap-text);
+  border: 1px solid var(--ap-border); border-radius: 10px; padding: 0.6rem 0.75rem;
+}
+.ap-check { grid-template-columns: auto 1fr; align-items: start; }
+.ap-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.2rem; }
+
+.ap-success {
+  display: grid; gap: 0.75rem; justify-items: start;
+  border: 1px solid var(--ap-border); border-radius: var(--ap-radius);
+  padding: 1rem; background: var(--ap-surface-2); margin-top: 1rem;
+}
+
+.ap-reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.9rem; margin-top: 1rem; }
+.ap-review {
+  border: 1px solid var(--ap-border); border-radius: var(--ap-radius);
+  padding: 1rem; background: var(--ap-surface-2);
+}
+.ap-review__text { margin: 0.6rem 0; }
+.ap-stars { display: inline-flex; gap: 0.15rem; color: var(--ap-accent); }
+.ap-slider { display: grid; gap: 0.9rem; margin-top: 1rem; }
+.ap-slider__nav { display: flex; align-items: center; gap: 1rem; }
+.ap-dots { display: flex; gap: 0.4rem; }
+.ap-dot { width: 0.7rem; height: 0.7rem; border-radius: 999px; border: 1px solid var(--ap-border); background: transparent; cursor: pointer; padding: 0; }
+.ap-dot--active { background: var(--ap-accent); border-color: var(--ap-accent); }
+
+.ap-contacts { display: grid; gap: 1rem; margin-top: 1rem; }
+.ap-contactlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.ap-contactlist li { display: flex; gap: 0.7rem; align-items: flex-start; }
+.ap-contactlist a { color: var(--ap-text); }
+.ap-messengers { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.ap-map { border: 1px dashed var(--ap-border); border-radius: var(--ap-radius); padding: 1.25rem; background: var(--ap-surface-2); }
+.ap-map__inner { display: grid; gap: 0.5rem; justify-items: start; }
+
+/* Доступность: видимый фокус и контраст */
+.ap-block :focus-visible {
+  outline: 3px solid var(--ap-focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ap-block * { transition: none !important; animation: none !important; }
+}

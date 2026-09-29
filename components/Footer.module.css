@@ -1,0 +1,47 @@
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: var(--space-8) 0;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.brand {
+  margin: 0 0 var(--space-2);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.muted {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 0.95rem;
+}
+
+.nav a {
+  transition: opacity 0.2s ease;
+}
+
+.nav a:hover {
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+  .muted:last-child {
+    grid-column: 1 / -1;
+  }
+}
