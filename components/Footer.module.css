@@ -1,47 +1,181 @@
 .footer {
-  border-top: 1px solid var(--border);
-  background: var(--bg-elevated);
-  padding: var(--space-8) 0;
+  position: relative;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(1000px 400px at 50% 0%, color-mix(in srgb, var(--champagne) 6%, transparent), transparent 60%),
+    var(--onyx);
+  padding: var(--s16) 0 var(--s8);
+  overflow: hidden;
+}
+
+.starlightWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: var(--space-4);
-}
-
-.brand {
-  margin: 0 0 var(--space-2);
-  font-weight: 800;
-  font-size: 1.1rem;
-}
-
-.muted {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-}
-
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  font-size: 0.95rem;
-}
-
-.nav a {
-  transition: opacity 0.2s ease;
-}
-
-.nav a:hover {
-  opacity: 0.8;
+  gap: var(--s8);
+  grid-template-columns: 1fr;
+  padding-bottom: var(--s12);
 }
 
 @media (min-width: 768px) {
   .inner {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--s12);
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--champagne) 0%, color-mix(in srgb, var(--champagne) 60%, var(--bone)) 100%);
+  color: var(--champagne-ink);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bone) 40%, transparent),
+    0 6px 20px color-mix(in srgb, var(--champagne) 30%, transparent);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--bone);
+  line-height: 1;
+}
+
+.brandTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--champagne);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.tagline {
+  max-width: 36ch;
+  color: var(--pearl);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.social {
+  display: flex;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--pearl);
+  letter-spacing: 0.05em;
+  transition: border-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
+}
+
+.socialBtn:hover {
+  border-color: var(--champagne);
+  color: var(--champagne);
+  transform: translateY(-1px);
+}
+
+.navCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.colTitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--champagne);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 var(--s2);
+}
+
+.navCol a {
+  color: var(--pearl);
+  font-size: 0.95rem;
+  transition: color var(--d-fast) var(--ease-out);
+}
+
+.navCol a:hover {
+  color: var(--bone);
+}
+
+.contactLine {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  color: var(--pearl);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.legal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding-top: var(--s6);
+  border-top: 1px solid var(--line);
+  color: var(--steel);
+  font-size: 0.82rem;
+}
+
+@media (min-width: 768px) {
+  .legal {
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
   }
-  .muted:last-child {
-    grid-column: 1 / -1;
-  }
+}
+
+.legalLink {
+  color: var(--steel);
+  transition: color var(--d-fast) var(--ease-out);
+}
+
+.legalLink:hover {
+  color: var(--champagne);
 }

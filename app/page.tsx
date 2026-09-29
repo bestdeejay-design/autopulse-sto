@@ -1,149 +1,246 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import HeroScene from "../components/HeroScene";
+import Starlight from "../components/Starlight";
+import FaqSection from "../components/FaqSection";
 import { BookingForm, Calculator, Contacts, Reviews } from "../components";
+import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  BoxIcon,
+  CameraIcon,
+  CheckIcon,
+  CogIcon,
+  DiscBrakeIcon,
+  EngineIcon,
+  LightningIcon,
+  MaybachStarIcon,
+  PulseIcon,
+  ShieldIcon,
+  SparkleIcon,
+  WheelIcon,
+  WrenchIcon,
+} from "../components/Icons";
 
 type Service = {
   title: string;
   description: string;
   price: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
+  accent?: boolean;
 };
-
-function Icon({ d }: { d: string }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d={d} />
-    </svg>
-  );
-}
 
 const services: Service[] = [
   {
     title: "Компьютерная диагностика",
     description: "Полная проверка 60+ параметров, отчёт и план ремонта за 45 минут.",
     price: "от 1 500 ₽",
-    icon: <Icon d="M3 12h4l2-6 4 12 2-6h6" />
+    icon: <PulseIcon size={24} />,
   },
   {
     title: "Техобслуживание (ТО)",
     description: "Масло, фильтры, проверка подвески и тормозов по регламенту.",
     price: "от 4 900 ₽",
-    icon: <Icon d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+    icon: <CogIcon size={24} />,
+    accent: true,
   },
   {
     title: "Ремонт двигателя",
-    description: "ГРМ, ГБЦ, капитальный ремонт с гарантией 12 месяцев.",
+    description: "ГРМ, ГБЦ, капитальный ремонт с гарантией 24 месяца.",
     price: "от 8 000 ₽",
-    icon: <Icon d="M7 8h10v8H7zM4 10h3M17 10h3M12 8V4M9 20v-4M15 20v-4" />
+    icon: <EngineIcon size={24} />,
   },
   {
     title: "Тормозная система",
-    description: "Колодки, диски, суппорты и прокачка. Проверка на стенде.",
+    description: "Колодки, диски, суппорты, прокачка. Проверка на стенде.",
     price: "от 2 500 ₽",
-    icon: <Icon d="M12 3a9 9 0 1 0 9 9M12 7v5l3 3M19 3l-2 2" />
+    icon: <DiscBrakeIcon size={24} />,
   },
   {
     title: "Подвеска и рулевое",
     description: "Амортизаторы, рычаги, ШРУС, развал-схождение 3D.",
     price: "от 1 900 ₽",
-    icon: <Icon d="M4 16l4-9 4 9 4-9 4 9M3 20h18" />
+    icon: <WheelIcon size={24} />,
   },
   {
     title: "Электрика и АКБ",
     description: "Стартер, генератор, проводка, установка сигнализаций.",
     price: "от 1 200 ₽",
-    icon: <Icon d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" />
+    icon: <LightningIcon size={24} />,
   },
   {
     title: "Кондиционер и климат",
     description: "Заправка, антибактериальная обработка, ремонт компрессора.",
     price: "от 2 900 ₽",
-    icon: <Icon d="M12 2v20M4 6l16 12M20 6L4 18M12 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+    icon: <SparkleIcon size={24} />,
   },
   {
     title: "Шиномонтаж и хранение",
     description: "Балансировка, сезонная замена, хранение комплекта.",
     price: "от 3 500 ₽",
-    icon: <Icon d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0-16 0M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
-  }
+    icon: <BoxIcon size={24} />,
+  },
 ];
 
 const advantages = [
   {
-    title: "Честная смета до старта",
-    description: "Фиксируем цену в заказ-наряде. Никаких «внезапных» работ без звонка.",
-    d: "M20 6L9 17l-5-5"
+    title: "Фиксированная смета",
+    description: "Цена в заказ-наряде до старта работ. Никаких сюрпризов в чеке.",
+    icon: <ShieldIcon size={26} />,
   },
   {
-    title: "Гарантия 12 месяцев",
+    title: "Гарантия 24 месяца",
     description: "На работы и запчасти. Все условия — письменно в договоре.",
-    d: "M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"
+    icon: <CheckIcon size={26} />,
   },
   {
     title: "Фото и видеоотчёт",
-    description: "Присылаем состояние узлов в мессенджер до согласования ремонта.",
-    d: "M4 7h3l2-2h6l2 2h3v12H4zM12 11a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
+    description: "Состояние узлов в мессенджер до согласования каждого этапа.",
+    icon: <CameraIcon size={26} />,
   },
   {
-    title: "Запчасти в наличии",
-    description: "Оригинал и проверенные аналоги на складе. Не ждёте неделю.",
-    d: "M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"
-  }
+    title: "Склад запчастей",
+    description: "Оригинал и проверенные аналоги в наличии. Без ожидания неделями.",
+    icon: <BoxIcon size={26} />,
+  },
 ];
 
 const stats = [
-  { value: "12 лет", label: "на рынке Москвы" },
-  { value: "9 400+", label: "обслуженных авто" },
-  { value: "4,9", label: "средняя оценка" },
-  { value: "60 мин", label: "средний срок ТО" }
+  { value: "12 лет", label: "опыта на рынке Москвы" },
+  { value: "9 400+", label: "обслуженных автомобилей" },
+  { value: "4,9", label: "средняя оценка на картах" },
+  { value: "24 мес.", label: "гарантия на работы" },
+];
+
+const process = [
+  {
+    step: "01",
+    title: "Заявка",
+    desc: "Звонок или онлайн-форма. Ответим за 10 минут в рабочее время.",
+    time: "10 мин",
+  },
+  {
+    step: "02",
+    title: "Диагностика",
+    desc: "60+ параметров на стенде. Бесплатно при заказе ремонта.",
+    time: "45 мин",
+  },
+  {
+    step: "03",
+    title: "Смета",
+    desc: "Точная цена, фиксируем письменно. Согласование каждого пункта.",
+    time: "15 мин",
+  },
+  {
+    step: "04",
+    title: "Ремонт",
+    desc: "Фотоотчёт в мессенджер. Оригинальные запчасти со склада.",
+    time: "1–4 дня",
+  },
+  {
+    step: "05",
+    title: "Приёмка",
+    desc: "Проверка вместе с вами. Гарантийный талон и чек на руки.",
+    time: "20 мин",
+  },
+];
+
+const cases = [
+  {
+    brand: "Mercedes-Maybach S 580",
+    title: "Капитальный ремонт V8 BiTurbo",
+    result: "Восстановление компрессии, замена ГРМ и маслонасоса",
+    metrics: ["4 дня", "−72% расход масла"],
+    badge: "Maybach",
+  },
+  {
+    brand: "Porsche Cayenne Turbo",
+    title: "Полная диагностика + тормоза",
+    result: "Замена дисков и колодок Brembo, адаптация ESP",
+    metrics: ["1 день", "−3 м тормозной путь"],
+    badge: "Porsche",
+  },
+  {
+    brand: "BMW X5 (G05)",
+    title: "Плавающая ошибка АКПП",
+    result: "Адаптация ZF 8HP, замена соленоидов, обновление ПО",
+    metrics: ["2 дня", "стабильная работа"],
+    badge: "BMW",
+  },
+];
+
+const brands = [
+  "Mercedes-Benz",
+  "Porsche",
+  "BMW",
+  "Audi",
+  "Lexus",
+  "Volkswagen",
+  "Toyota",
+  "Maybach",
+];
+
+const faqs = [
+  {
+    q: "Сколько стоит диагностика?",
+    a: "Компьютерная диагностика стоит 1 500 ₽. При заказе ремонта от 5 000 ₽ — бесплатно. Диагностика ходовой на подъёмнике — 900 ₽.",
+  },
+  {
+    q: "Какая гарантия на работы?",
+    a: "24 месяца на работы и установленные запчасти. Гарантия фиксируется в заказ-наряде. Оригинал хранится у нас 3 года.",
+  },
+  {
+    q: "Можно ли привезти свои запчасти?",
+    a: "Да, можем установить ваши запчасти. Однако гарантия 24 месяца распространяется только на работы, а не на сами детали.",
+  },
+  {
+    q: "Сколько занимает ТО?",
+    a: "ТО Стандарт (масло, фильтры, диагностика) занимает 90 минут. Для ТО Макси — около 2,5 часов. Можно подождать в нашем лаундже.",
+  },
+  {
+    q: "Какие способы оплаты?",
+    a: "Наличные, банковские карты, переводы для юрлиц с НДС. Также доступна оплата по QR-коду через СБП.",
+  },
 ];
 
 export default function HomePage() {
   return (
     <>
+      {/* =========================================================
+          HERO — звёздное небо + сцена Maybach в цеху + статы
+         ========================================================= */}
       <section className={styles.hero} aria-labelledby="hero-title">
+        <div className={styles.starlightWrap} aria-hidden="true">
+          <Starlight count={140} goldChance={0.15} bigChance={0.08} shooting />
+        </div>
+
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroText}>
-            <p className={styles.eyebrow}>СТО полного цикла · Москва, ул. Примерная, 12</p>
+            <p className={styles.eyebrow}>
+              <span className={styles.eyebrowDot} aria-hidden="true" />
+              Премиальное СТО · Москва, Автомоторная 7с2
+            </p>
             <h1 id="hero-title" className={styles.title}>
-              Ремонтируем авто так, как хотели бы для своих
+              <span className={styles.titleLine}>Сервис уровня</span>
+              <span className={styles.titleAccent}>Maybach.</span>
+              <span className={styles.titleLine}>Для&nbsp;всех.</span>
             </h1>
             <p className={styles.subtitle}>
-              «АвтоПульс» — диагностика, ТО и сложный ремонт. Смета до начала работ,
-              гарантия 12 месяцев, онлайн-запись за минуту.
+              Диагностика, ТО и&nbsp;сложный ремонт с&nbsp;индивидуальным подходом.
+              Фиксированная смета, фотоотчёт в&nbsp;мессенджер, гарантия 24&nbsp;месяца.
             </p>
+
             <div className={styles.ctaRow}>
-              <a href="#booking" className={styles.ctaPrimary}>
-                Записаться на сервис
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+              <a href="#booking" className={`${styles.ctaPrimary} chrome-trim`}>
+                <span>Записаться на сервис</span>
+                <ArrowRightIcon size={18} />
               </a>
-              <a href="#services" className={styles.ctaGhost}>
-                Смотреть услуги и цены
+              <a href="#calculator" className={styles.ctaGhost}>
+                Рассчитать стоимость ТО
               </a>
             </div>
+
             <div className={`pulse-trace ${styles.trace}`} aria-hidden="true" />
+
             <dl className={styles.stats}>
               {stats.map((s) => (
                 <div key={s.label} className={styles.stat}>
@@ -153,122 +250,281 @@ export default function HomePage() {
               ))}
             </dl>
           </div>
+
           <div className={styles.heroVisual}>
-            <div className={styles.heroPhotoWrap}>
-              <Image
-                src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=1600&auto=format&fit=crop"
-                alt="Ночной цех «АвтоПульс»: механик проводит диагностику автомобиля на подъёмнике"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                unoptimized
-                className={styles.heroPhoto}
-              />
+            <div className={`${styles.heroPhotoWrap} chrome-trim`}>
+              <HeroScene className={styles.heroPhoto} />
               <div className={styles.heroOverlay} aria-hidden="true" />
               <span className={styles.heroChip}>
                 <span className={styles.heroChipDot} aria-hidden="true" />
                 Свободно 3 поста
               </span>
+              <span className={styles.heroBadge}>
+                <MaybachStarIcon size={14} />
+                <span>Maybach · сервис</span>
+              </span>
+            </div>
+            <div className={styles.heroFloatingCard} aria-hidden="true">
+              <span className={styles.heroFloatingDot} />
+              <div>
+                <p className={styles.heroFloatingLabel}>Сейчас в работе</p>
+                <p className={styles.heroFloatingValue}>BMW X5 · G05</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="services" className={styles.section} aria-labelledby="services-title">
+      {/* =========================================================
+          ПОЛОСА ДОВЕРИЯ — марки автомобилей + бейджи
+         ========================================================= */}
+      <section className={styles.trustBar} aria-label="Обслуживаемые марки">
+        <div className={`container ${styles.trustInner}`}>
+          <span className={styles.trustLabel}>Работаем с&nbsp;премиальными марками</span>
+          <ul className={styles.brands}>
+            {brands.map((b) => (
+              <li key={b} className={styles.brandItem}>{b}</li>
+            ))}
+          </ul>
+          <ul className={styles.badges}>
+            <li className={styles.badge}>
+              <CheckIcon size={14} /> Гарантия 24&nbsp;мес.
+            </li>
+            <li className={styles.badge}>
+              <CheckIcon size={14} /> Оплата после приёмки
+            </li>
+            <li className={styles.badge}>
+              <CheckIcon size={14} /> Фотоотчёт в&nbsp;мессенджер
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* =========================================================
+          ПРЕИМУЩЕСТВА — 4 стеклянные карточки
+         ========================================================= */}
+      <section className={styles.section} aria-labelledby="why-title">
         <div className="container">
-          <p className={styles.eyebrow}>Услуги и цены</p>
-          <h2 id="services-title" className={styles.h2}>
-            8 направлений — от диагностики до капиталки
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>01</span> Преимущества
+          </p>
+          <h2 id="why-title" className={styles.h2}>
+            Обслуживание без компромиссов —
+            <br />
+            <span className={styles.h2Accent}>как для Maybach</span>
           </h2>
           <p className={styles.lead}>
-            Цены-заглушки для старта. Точную смету называем после бесплатного осмотра.
+            Каждый этап&nbsp;— от&nbsp;приёмки до&nbsp;выдачи&nbsp;— построен вокруг вашего спокойствия.
+          </p>
+          <ul className={styles.advGrid}>
+            {advantages.map((a) => (
+              <li key={a.title} className={`${styles.advCard} ambient-glow`}>
+                <span className={styles.advIcon} aria-hidden="true">{a.icon}</span>
+                <h3 className={styles.advTitle}>{a.title}</h3>
+                <p className={styles.advText}>{a.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* =========================================================
+          УСЛУГИ — карточки с золотым акцентом
+         ========================================================= */}
+      <section id="services" className={`${styles.section} ${styles.sectionAlt}`} aria-labelledby="services-title">
+        <div className="container">
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>02</span> Услуги и&nbsp;цены
+          </p>
+          <h2 id="services-title" className={styles.h2}>
+            Полный цикл работ —
+            <br />
+            <span className={styles.h2Accent}>от диагностики до капиталки</span>
+          </h2>
+          <p className={styles.lead}>
+            Фиксированные цены на&nbsp;сайте. Точную смету называем после бесплатного осмотра.
           </p>
           <ul className={styles.grid}>
             {services.map((s) => (
-              <li key={s.title} className={styles.card}>
-                <span className={styles.cardIcon}>{s.icon}</span>
+              <li
+                key={s.title}
+                className={`${styles.card} ${s.accent ? styles.cardAccent : ""}`}
+              >
+                {s.accent && (
+                  <span className={styles.cardBadge}>
+                    <MaybachStarIcon size={12} /> Популярно
+                  </span>
+                )}
+                <span className={styles.cardIcon} aria-hidden="true">{s.icon}</span>
                 <h3 className={styles.cardTitle}>{s.title}</h3>
                 <p className={styles.cardText}>{s.description}</p>
-                <p className={styles.cardPrice}>{s.price}</p>
+                <div className={styles.cardFooter}>
+                  <span className={styles.cardPrice}>{s.price}</span>
+                  <a href="#calculator" className={styles.cardLink}>
+                    <span>Подробнее</span>
+                    <ArrowUpRightIcon size={14} />
+                  </a>
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.sectionAlt}`} aria-labelledby="why-title">
-        <div className="container">
-          <p className={styles.eyebrow}>Почему «АвтоПульс»</p>
-          <h2 id="why-title" className={styles.h2}>
-            Преимущества, которые чувствуются в чеке
-          </h2>
-          <ul className={styles.advGrid}>
-            {advantages.map((a) => (
-              <li key={a.title} className={styles.advCard}>
-                <span className={styles.cardIcon} aria-hidden="true">
-                  <Icon d={a.d} />
-                </span>
-                <h3 className={styles.cardTitle}>{a.title}</h3>
-                <p className={styles.cardText}>{a.description}</p>
-              </li>
-            ))}
-          </ul>
-          <div id="booking-cta" className={styles.booking}>
-            <div>
-              <h3 className={styles.bookingTitle}>Запись на сервис</h3>
-              <p className={styles.bookingText}>
-                Оставьте заявку — перезвоним за 10 минут, подтвердим время и смету.
-                Ежедневно 8:00–21:00, +7 (495) 120-45-67.
-              </p>
-            </div>
-            <a href="tel:+74951204567" className={styles.ctaPrimary}>
-              Позвонить: +7 (495) 120-45-67
-            </a>
-          </div>
-        </div>
-      </section>
-
+      {/* =========================================================
+          КАЛЬКУЛЯТОР
+         ========================================================= */}
       <section className={styles.section} aria-labelledby="calculator-heading">
         <div className="container">
-          <span id="calculator-heading" className={styles.eyebrow}>
-            Калькулятор
-          </span>
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>03</span> Калькулятор
+          </p>
+          <h2 id="calculator-heading" className={styles.h2}>
+            Узнайте стоимость ТО
+            <br />
+            <span className={styles.h2Accent}>за 30&nbsp;секунд</span>
+          </h2>
+          <p className={styles.lead}>
+            Выберите класс автомобиля и&nbsp;услуги&nbsp;— цена и&nbsp;время появятся сразу.
+            Смета фиксируется до&nbsp;начала работ.
+          </p>
           <Calculator id="calculator" />
         </div>
       </section>
 
-      <section
-        className={`${styles.section} ${styles.sectionAlt}`}
-        aria-labelledby="booking-heading"
-      >
+      {/* =========================================================
+          ПРОЦЕСС — 5 шагов с хромированной трассой
+         ========================================================= */}
+      <section className={`${styles.section} ${styles.sectionAlt}`} aria-labelledby="process-title">
         <div className="container">
-          <span id="booking-heading" className={styles.eyebrow}>
-            Онлайн-запись
-          </span>
-          <BookingForm id="booking" />
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>04</span> Процесс
+          </p>
+          <h2 id="process-title" className={styles.h2}>
+            От заявки до выдачи —
+            <br />
+            <span className={styles.h2Accent}>прозрачно на каждом шаге</span>
+          </h2>
+
+          <ol className={styles.process}>
+            {process.map((p, i) => (
+              <li key={p.step} className={styles.processStep}>
+                <span className={styles.processStepNum}>{p.step}</span>
+                <h3 className={styles.processStepTitle}>{p.title}</h3>
+                <p className={styles.processStepDesc}>{p.desc}</p>
+                <span className={styles.processStepTime}>{p.time}</span>
+                {i < process.length - 1 && (
+                  <span className={styles.processArrow} aria-hidden="true">
+                    <ArrowRightIcon size={20} />
+                  </span>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="reviews-heading">
+      {/* =========================================================
+          КЕЙСЫ — фото-карточки с метриками
+         ========================================================= */}
+      <section id="cases" className={styles.section} aria-labelledby="cases-title">
         <div className="container">
-          <span id="reviews-heading" className={styles.eyebrow}>
-            Отзывы
-          </span>
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>05</span> Кейсы
+          </p>
+          <h2 id="cases-title" className={styles.h2}>
+            Работы из нашего цеха —
+            <br />
+            <span className={styles.h2Accent}>на&nbsp;Maybach, Porsche, BMW</span>
+          </h2>
+          <p className={styles.lead}>
+            Три примера из&nbsp;недавних работ. Каждый кейс&nbsp;— с&nbsp;фотоотчётом, сроками и&nbsp;результатом.
+          </p>
+          <ul className={styles.casesGrid}>
+            {cases.map((c) => (
+              <li key={c.brand} className={`${styles.caseCard} chrome-trim`}>
+                <div className={styles.caseBadge}>
+                  <MaybachStarIcon size={11} /> {c.badge}
+                </div>
+                <div className={styles.caseImage} aria-hidden="true">
+                  <span className={styles.caseImageText}>{c.brand.split(" ")[0]}</span>
+                </div>
+                <div className={styles.caseBody}>
+                  <p className={styles.caseBrand}>{c.brand}</p>
+                  <h3 className={styles.caseTitle}>{c.title}</h3>
+                  <p className={styles.caseResult}>{c.result}</p>
+                  <div className={styles.caseMetrics}>
+                    {c.metrics.map((m) => (
+                      <span key={m} className={styles.caseMetric}>{m}</span>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* =========================================================
+          ОТЗЫВЫ
+         ========================================================= */}
+      <section className={`${styles.section} ${styles.sectionAlt}`} aria-labelledby="reviews-heading">
+        <div className="container">
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>06</span> Отзывы
+          </p>
+          <h2 id="reviews-heading" className={styles.h2}>
+            4,9 на&nbsp;картах —
+            <br />
+            <span className={styles.h2Accent}>620+ отзывов клиентов</span>
+          </h2>
           <Reviews id="reviews" variant="slider" />
         </div>
       </section>
 
+      {/* =========================================================
+          FAQ
+         ========================================================= */}
+      <FaqSection faqs={faqs} />
+
+      {/* =========================================================
+          ЗАПИСЬ
+         ========================================================= */}
       <section
+        id="booking"
         className={`${styles.section} ${styles.sectionAlt}`}
-        aria-labelledby="contacts-heading"
+        aria-labelledby="booking-heading"
       >
         <div className="container">
-          <span id="contacts-heading" className={styles.eyebrow}>
-            Контакты
-          </span>
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>07</span> Онлайн-запись
+          </p>
+          <h2 id="booking-heading" className={styles.h2}>
+            Запишитесь прямо сейчас —
+            <br />
+            <span className={styles.h2Accent}>перезвоним за&nbsp;15&nbsp;минут</span>
+          </h2>
+          <BookingForm id="booking-form" />
+        </div>
+      </section>
+
+      {/* =========================================================
+          КОНТАКТЫ
+         ========================================================= */}
+      <section className={styles.section} aria-labelledby="contacts-heading">
+        <div className="container">
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowNum}>08</span> Контакты
+          </p>
+          <h2 id="contacts-heading" className={styles.h2}>
+            Приезжайте в&nbsp;гости —
+            <br />
+            <span className={styles.h2Accent}>мы рядом с&nbsp;метро Войковская</span>
+          </h2>
           <Contacts id="contacts" />
         </div>
       </section>
     </>
   );
 }
+

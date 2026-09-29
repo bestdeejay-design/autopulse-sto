@@ -1,53 +1,35 @@
 import type { Metadata } from "next";
-import { Unbounded, Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./globals.css";
 import "../components/components.css";
 
-const display = Unbounded({
-  weight: ["600", "700"],
-  subsets: ["cyrillic", "latin"],
-  display: "swap",
-  variable: "--font-display-next"
-});
-
-const head = Manrope({
-  weight: ["700", "800"],
-  subsets: ["cyrillic", "latin"],
-  display: "swap",
-  variable: "--font-head-next"
-});
-
-const body = Inter({
-  weight: ["400", "500", "600"],
-  subsets: ["cyrillic", "latin"],
-  display: "swap",
-  variable: "--font-body-next"
-});
-
-const mono = JetBrains_Mono({
-  weight: ["400", "500"],
-  subsets: ["cyrillic", "latin"],
-  display: "swap",
-  variable: "--font-mono-next"
-});
+/**
+ * Maybach Night Edition — типографика
+ *
+ * Подход:
+ * - Шрифты Google Fonts (Cormorant Garamond, Manrope, Inter, JetBrains Mono)
+ *   подключаются через <link> в head (см. ниже) — это опционально и
+ *   не ломает сборку при отсутствии сети.
+ * - CSS-переменные шрифтов определены в globals.css с качественными
+ *   системными fallback'ами, чтобы сайт работал и без веб-шрифтов.
+ */
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover" as const,
-  themeColor: "#0a0c10"
+  themeColor: "#050608"
 };
 
 export const metadata: Metadata = {
-  title: "АвтоПульс — СТО полного цикла в Москве",
+  title: "АвтоПульс — Премиальное СТО в Москве · Maybach-класс обслуживания",
   description:
-    "АвтоПульс — премиальное СТО полного цикла в Москве: диагностика, ТО, ремонт двигателя, тормозной системы и электрики. Запись онлайн за 1 минуту.",
+    "АвтоПульс — премиальная станция техобслуживания в Москве: диагностика, ТО, ремонт двигателя и электрики. Индивидуальный подход, гарантия 24 месяца, фотоотчёт в мессенджер.",
   openGraph: {
-    title: "АвтоПульс — СТО полного цикла в Москве",
+    title: "АвтоПульс — Премиальное СТО в Москве",
     description:
-      "Диагностика, ТО, ремонт и электрика. Честные цены в рублях, гарантия 12 месяцев.",
+      "Сервис уровня Mercedes-Maybach: тотальная диагностика, честная смета, мастера с опытом 10+ лет.",
     type: "website",
     locale: "ru_RU",
     siteName: "АвтоПульс"
@@ -60,10 +42,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="ru"
-      className={`${display.variable} ${head.variable} ${body.variable} ${mono.variable}`}
-    >
+    <html lang="ru">
+      <head>
+        {/* Preconnect к Google Fonts для ускорения первой загрузки */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* Шрифты (опционально — fallback'ы в globals.css обеспечат работу) */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        />
+      </head>
       <body>
         <a className="skip-link" href="#main">
           Перейти к содержимому

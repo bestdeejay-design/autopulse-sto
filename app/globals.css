@@ -1,69 +1,134 @@
+/*
+  АвтоПульс — Maybach Night Edition
+  Концепция: Mercedes-Maybach × Porsche × Luxury Workshop
+  Палитра: глубокий чёрный, хром, Champagne-золото, рубиново-красный
+  Эффекты: звёздный потолок (Maybach), ambient-glow, glass, carbon
+*/
+
 :root {
-  /* DESIGN.md v1 — канон палитры (6 hex) */
-  --void: #0a0c10;
-  --carbon: #141922;
-  --bone: #f2f4f7;
-  --steel: #98a2b3;
-  --pulse: #c9f31d;
+  /* === ФОНЫ (тёмный люкс) === */
+  --obsidian: #050608;        /* основной чёрный, глубже чем --void */
+  --onyx: #0c0e14;            /* поверхность уровня 1 */
+  --carbon: #14181f;          /* поверхность уровня 2 (карточки) */
+  --graphite: #1c2230;        /* бордеры и подложки */
+  --smoke: #2a3242;           /* вторичные бордеры */
+
+  /* === ТЕКСТ === */
+  --bone: #ece7df;            /* основной текст — тёплый айвори */
+  --pearl: #c8c2b8;           /* вторичный текст */
+  --steel: #8b8a85;           /* tertiary текст, подписи */
+  --muted: #5a5752;           /* самый тихий текст */
+
+  /* === ACCENT (Champagne-золото вместо лайма) === */
+  --champagne: #d4b87a;       /* основной акцент — тёплое золото */
+  --champagne-bright: #e9cf94; /* hover/свечение */
+  --champagne-ink: #1a1306;   /* текст на золоте */
+  --champagne-dim: color-mix(in srgb, #d4b87a 14%, transparent);
+
+  /* === RUBY (Maybach-красный для вторичного акцента) === */
+  --ruby: #a8313a;            /* вторичный акцент — глубокий рубин */
+  --ruby-bright: #d04852;
+  --ruby-dim: color-mix(in srgb, #a8313a 18%, transparent);
+
+  /* === INFO (электрик-синий остаётся для статусов) === */
   --volt: #4d7cfe;
-  --pulse-ink: #111400;
+  --volt-dim: color-mix(in srgb, #4d7cfe 18%, transparent);
 
-  /* Производные — только через color-mix, новых hex нет */
-  --line: color-mix(in srgb, var(--bone) 12%, transparent);
-  --glass: color-mix(in srgb, var(--carbon) 72%, transparent);
-  --pulse-dim: color-mix(in srgb, var(--pulse) 14%, transparent);
-  --volt-dim: color-mix(in srgb, var(--volt) 16%, transparent);
-  --success: var(--pulse);
+  /* === ПРОИЗВОДНЫЕ === */
+  --line: color-mix(in srgb, var(--bone) 9%, transparent);
+  --line-strong: color-mix(in srgb, var(--bone) 18%, transparent);
+  --glass: color-mix(in srgb, var(--carbon) 65%, transparent);
+  --glass-strong: color-mix(in srgb, var(--onyx) 82%, transparent);
+
+  /* === СОСТОЯНИЯ === */
+  --success: var(--champagne);
   --info: var(--volt);
-  --warning: #ffb224;
-  --danger: #ff5c5c;
-  --photo-overlay: linear-gradient(180deg, rgba(10, 12, 16, 0.1), rgba(10, 12, 16, 0.82));
+  --warning: #e0a948;
+  --danger: #d04852;
 
-  /* Совместимость со старыми классами (алиасы, не новые решения) */
-  --bg: var(--void);
-  --bg-elevated: var(--carbon);
+  /* === ОВЕРЛЕИ === */
+  --photo-overlay: linear-gradient(
+    180deg,
+    rgba(5, 6, 8, 0.05) 0%,
+    rgba(5, 6, 8, 0.55) 50%,
+    rgba(5, 6, 8, 0.92) 100%
+  );
+  --ambient-glow: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    color-mix(in srgb, var(--champagne) 18%, transparent) 0%,
+    transparent 60%
+  );
+
+  /* === ТИПОГРАФИКА (Cormorant Garamond + Manrope + Inter + Mono) ===
+     Шрифты подключаются через <link> в layout.tsx (Google Fonts).
+     Fallback'ы обеспечивают корректную работу без веб-шрифтов. */
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-head: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: var(--font-body);
+
+  /* === SPACING (база 4px) === */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s6: 24px;
+  --s8: 32px;
+  --s12: 48px;
+  --s16: 64px;
+  --s24: 96px;
+  --s32: 128px;
+
+  /* Алиасы для совместимости со старым кодом */
+  --space-1: var(--s1);
+  --space-2: var(--s2);
+  --space-3: var(--s3);
+  --space-4: var(--s4);
+  --space-6: var(--s6);
+  --space-8: var(--s8);
+  --space-12: var(--s12);
+  --space-16: var(--s16);
+  --space-24: var(--s24);
+  --space-32: var(--s32);
+
+  --max-width: 1280px;
+
+  /* === РАДИУСЫ (Maybach — мягче, чем Tesla) === */
+  --r-s: 10px;
+  --r-m: 14px;
+  --r-l: 22px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  /* === ТЕНИ И СВЕЧЕНИЯ === */
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 28px color-mix(in srgb, var(--champagne) 35%, transparent);
+  --shadow-glow-ruby: 0 0 24px color-mix(in srgb, var(--ruby) 30%, transparent);
+  --shadow-glow-volt: 0 0 20px color-mix(in srgb, var(--volt) 35%, transparent);
+
+  /* === MOTION === */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --d-fast: 200ms;
+  --d-med: 400ms;
+  --d-slow: 800ms;
+  --d-stellar: 4200ms;
+
+  /* === АЛИАСЫ ДЛЯ ОБРАТНОЙ СОВМЕСТИМОСТИ === */
+  --void: var(--obsidian);
+  --bg: var(--obsidian);
+  --bg-elevated: var(--onyx);
   --bg-card: var(--carbon);
   --text: var(--bone);
   --text-muted: var(--steel);
-  --accent: var(--pulse);
-  --accent-ink: var(--pulse-ink);
-  --accent-soft: var(--pulse-dim);
+  --accent: var(--champagne);
+  --accent-ink: var(--champagne-ink);
+  --accent-soft: var(--champagne-dim);
   --border: var(--line);
-
-  /* Шрифты — значения подставляет next/font через CSS-переменные в layout */
-  --font-display: var(--font-display-next, "Unbounded", "Manrope", system-ui, sans-serif);
-  --font-head: var(--font-head-next, "Manrope", system-ui, sans-serif);
-  --font-body: var(--font-body-next, "Inter", system-ui, sans-serif);
-  --font-mono: var(--font-mono-next, "JetBrains Mono", ui-monospace, monospace);
-  --font-sans: var(--font-body);
-
-  /* Spacing (база 4px) + радиусы + motion */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-24: 96px;
-  --space-32: 128px;
-  --max-width: 1200px;
-  --r-s: 10px;
-  --r-m: 14px;
-  --r-l: 20px;
-  --r-full: 999px;
-  --radius-sm: var(--r-s);
-  --radius-md: var(--r-m);
-  --radius-lg: var(--r-l);
-  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --shadow-glow: 0 0 24px rgba(201, 243, 29, 0.28);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --d-fast: 150ms;
-  --d-med: 300ms;
-  --d-slow: 600ms;
 }
 
+/* ===== БАЗОВЫЙ СБРОС ===== */
 * {
   box-sizing: border-box;
 }
@@ -79,16 +144,21 @@ body {
 }
 
 body {
-  background: var(--void);
+  background: var(--obsidian);
   color: var(--bone);
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+  /* Тонкая угольная текстура поверх фона */
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, color-mix(in srgb, var(--champagne) 6%, transparent), transparent 60%),
+    radial-gradient(800px 500px at 0% 30%, color-mix(in srgb, var(--ruby) 4%, transparent), transparent 70%);
+  background-attachment: fixed;
 }
 
-/* Мобайл: гасим горизонтальный скролл, grid-дети не распирают (375px) */
 main,
 section,
 div,
@@ -103,19 +173,24 @@ a {
 
 a:focus-visible,
 button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--pulse);
+  outline: 2px solid var(--champagne);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
-img {
+img,
+svg {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 .container {
-  width: min(var(--max-width), 100% - 40px);
+  width: min(var(--max-width), 100% - 48px);
   margin-inline: auto;
 }
 
@@ -129,9 +204,9 @@ img {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--pulse);
-  color: var(--pulse-ink);
-  padding: var(--space-2) var(--space-4);
+  background: var(--champagne);
+  color: var(--champagne-ink);
+  padding: var(--s3) var(--s4);
   border-radius: 0 0 var(--r-s) var(--r-s);
   z-index: 100;
   font-family: var(--font-body);
@@ -143,27 +218,147 @@ img {
 }
 
 ::selection {
-  background: var(--pulse);
-  color: var(--pulse-ink);
+  background: var(--champagne);
+  color: var(--champagne-ink);
 }
 
-/* --- Стекло (DESIGN §1.4) --- */
+/* ===== СТЕКЛО (Maybach — более насыщенное) ===== */
 .glass {
   background: var(--glass);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  border: 1px solid var(--line);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-l);
   box-shadow: var(--shadow-card);
 }
 
-/* --- Световая трасса / Pulse Trace (signature-элемент DESIGN §0) --- */
+.glass--strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== ХРОМ / ПЛАТИНА (chrome trim — пинстрайп Maybach) ===== */
+.chrome-trim {
+  position: relative;
+}
+
+.chrome-trim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--champagne) 50%, transparent) 0%,
+    color-mix(in srgb, var(--bone) 25%, transparent) 30%,
+    color-mix(in srgb, var(--champagne) 50%, transparent) 50%,
+    color-mix(in srgb, var(--bone) 25%, transparent) 70%,
+    color-mix(in srgb, var(--champagne) 50%, transparent) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===== ХРОМ КНОПКА (Maybach-look) ===== */
+.chrome-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--champagne) 60%, transparent) 20%,
+    color-mix(in srgb, var(--bone) 40%, transparent) 50%,
+    color-mix(in srgb, var(--champagne) 60%, transparent) 80%,
+    transparent 100%
+  );
+}
+
+/* ===== ЗВЁЗДНОЕ НЕБО (Maybach Starlight Headliner) ===== */
+.starlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.starlight__star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--bone);
+  border-radius: 50%;
+  box-shadow: 0 0 4px color-mix(in srgb, var(--bone) 80%, transparent);
+  animation: twinkle var(--d-stellar) ease-in-out infinite;
+  opacity: 0;
+}
+
+.starlight__star--gold {
+  background: var(--champagne-bright);
+  box-shadow: 0 0 6px var(--champagne);
+}
+
+.starlight__star--big {
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--bone) 90%, transparent);
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Shooting star — редкий проблеск */
+.starlight__shooting {
+  position: absolute;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bone), transparent);
+  opacity: 0;
+  animation: shoot 12s ease-out infinite;
+  animation-delay: 8s;
+}
+
+@keyframes shoot {
+  0%, 92% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) rotate(-25deg);
+  }
+  94% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(300px) translateY(120px) rotate(-25deg);
+  }
+}
+
+/* ===== СВЕТОВАЯ ТРАССА (Pulse Trace — золотой) ===== */
 .pulse-trace {
   position: relative;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, rgba(201, 243, 29, 0.55) 30%, var(--pulse) 50%, rgba(201, 243, 29, 0.55) 70%, transparent);
-  box-shadow: 0 0 18px rgba(201, 243, 29, 0.35);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--champagne) 50%, transparent) 30%,
+    var(--champagne) 50%,
+    color-mix(in srgb, var(--champagne) 50%, transparent) 70%,
+    transparent
+  );
+  box-shadow: 0 0 16px color-mix(in srgb, var(--champagne) 25%, transparent);
   overflow: hidden;
   isolation: isolate;
 }
@@ -173,19 +368,44 @@ img {
   position: absolute;
   inset: 0 auto 0 0;
   width: 120px;
-  background: linear-gradient(90deg, transparent, rgba(242, 244, 247, 0.9), transparent);
-  opacity: 0.8;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bone) 90%, transparent), transparent);
+  opacity: 0.7;
   transform: translateX(-130px);
-  animation: trace-pulse 3.2s linear infinite;
+  animation: trace-pulse 4.2s linear infinite;
 }
 
 @keyframes trace-pulse {
   to {
-    transform: translateX(calc(100vw));
+    transform: translateX(100vw);
   }
 }
 
-/* Только transform/opacity везде; layout-анимации запрещены */
+/* ===== AMBIENT GLOW — мягкое свечение под элементами ===== */
+.ambient-glow {
+  position: relative;
+}
+
+.ambient-glow::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--champagne) 20%, transparent) 0%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  opacity: 0;
+  transition: opacity var(--d-med) var(--ease-luxury);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ambient-glow:hover::before {
+  opacity: 1;
+}
+
+/* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -193,10 +413,26 @@ img {
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .pulse-trace::after,
+  .starlight__star,
+  .starlight__shooting {
     animation: none !important;
-    transition: none !important;
   }
-  .pulse-trace::after {
-    display: none;
+  .starlight__star {
+    opacity: 0.5;
   }
+}
+
+/* ===== ОБЩАЯ ТИПОГРАФИЧЕСКАЯ ИЕРАРХИЯ ===== */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: var(--bone);
+}
+
+p {
+  margin: 0;
 }
