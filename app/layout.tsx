@@ -1,8 +1,37 @@
 import type { Metadata } from "next";
+import { Unbounded, Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./globals.css";
 import "../components/components.css";
+
+const display = Unbounded({
+  weight: ["600", "700"],
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  variable: "--font-display-next"
+});
+
+const head = Manrope({
+  weight: ["700", "800"],
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  variable: "--font-head-next"
+});
+
+const body = Inter({
+  weight: ["400", "500", "600"],
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  variable: "--font-body-next"
+});
+
+const mono = JetBrains_Mono({
+  weight: ["400", "500"],
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  variable: "--font-mono-next"
+});
 
 export const metadata: Metadata = {
   title: "АвтоПульс — СТО полного цикла в Москве",
@@ -24,7 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html
+      lang="ru"
+      className={`${display.variable} ${head.variable} ${body.variable} ${mono.variable}`}
+    >
       <body>
         <a className="skip-link" href="#main">
           Перейти к содержимому

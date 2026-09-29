@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./page.module.css";
 import { BookingForm, Calculator, Contacts, Reviews } from "../components";
 
@@ -124,11 +125,25 @@ export default function HomePage() {
             <div className={styles.ctaRow}>
               <a href="#booking" className={styles.ctaPrimary}>
                 Записаться на сервис
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </a>
               <a href="#services" className={styles.ctaGhost}>
                 Смотреть услуги и цены
               </a>
             </div>
+            <div className={`pulse-trace ${styles.trace}`} aria-hidden="true" />
             <dl className={styles.stats}>
               {stats.map((s) => (
                 <div key={s.label} className={styles.stat}>
@@ -138,14 +153,23 @@ export default function HomePage() {
               ))}
             </dl>
           </div>
-          <div className={styles.heroVisual} aria-hidden="false">
-            <img
-              src="./sto-hero.svg"
-              alt="Механик «АвтоПульс» проводит диагностику автомобиля на подъёмнике"
-              width={520}
-              height={420}
-              loading="eager"
-            />
+          <div className={styles.heroVisual}>
+            <div className={styles.heroPhotoWrap}>
+              <Image
+                src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=1600&auto=format&fit=crop"
+                alt="Ночной цех «АвтоПульс»: механик проводит диагностику автомобиля на подъёмнике"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                unoptimized
+                className={styles.heroPhoto}
+              />
+              <div className={styles.heroOverlay} aria-hidden="true" />
+              <span className={styles.heroChip}>
+                <span className={styles.heroChipDot} aria-hidden="true" />
+                Свободно 3 поста
+              </span>
+            </div>
           </div>
         </div>
       </section>

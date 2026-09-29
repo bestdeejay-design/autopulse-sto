@@ -1,17 +1,43 @@
 :root {
-  --bg: #0a0c10;
-  --bg-elevated: #11141b;
-  --bg-card: #141821;
-  --text: #e8eaed;
-  --text-muted: #9aa1ad;
-  --accent: #c6f135;
-  --accent-ink: #0a0c10;
-  --accent-soft: rgba(198, 241, 53, 0.12);
-  --border: rgba(232, 234, 237, 0.12);
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* DESIGN.md v1 — канон палитры (6 hex) */
+  --void: #0a0c10;
+  --carbon: #141922;
+  --bone: #f2f4f7;
+  --steel: #98a2b3;
+  --pulse: #c9f31d;
+  --volt: #4d7cfe;
+  --pulse-ink: #111400;
+
+  /* Производные — только через color-mix, новых hex нет */
+  --line: color-mix(in srgb, var(--bone) 12%, transparent);
+  --glass: color-mix(in srgb, var(--carbon) 72%, transparent);
+  --pulse-dim: color-mix(in srgb, var(--pulse) 14%, transparent);
+  --volt-dim: color-mix(in srgb, var(--volt) 16%, transparent);
+  --success: var(--pulse);
+  --info: var(--volt);
+  --warning: #ffb224;
+  --danger: #ff5c5c;
+  --photo-overlay: linear-gradient(180deg, rgba(10, 12, 16, 0.1), rgba(10, 12, 16, 0.82));
+
+  /* Совместимость со старыми классами (алиасы, не новые решения) */
+  --bg: var(--void);
+  --bg-elevated: var(--carbon);
+  --bg-card: var(--carbon);
+  --text: var(--bone);
+  --text-muted: var(--steel);
+  --accent: var(--pulse);
+  --accent-ink: var(--pulse-ink);
+  --accent-soft: var(--pulse-dim);
+  --border: var(--line);
+
+  /* Шрифты — значения подставляет next/font через CSS-переменные в layout */
+  --font-display: var(--font-display-next, "Unbounded", "Manrope", system-ui, sans-serif);
+  --font-head: var(--font-head-next, "Manrope", system-ui, sans-serif);
+  --font-body: var(--font-body-next, "Inter", system-ui, sans-serif);
+  --font-mono: var(--font-mono-next, "JetBrains Mono", ui-monospace, monospace);
+  --font-sans: var(--font-body);
+
+  /* Spacing (база 4px) + радиусы + motion */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -20,7 +46,22 @@
   --space-8: 32px;
   --space-12: 48px;
   --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
   --max-width: 1200px;
+  --r-s: 10px;
+  --r-m: 14px;
+  --r-l: 20px;
+  --r-full: 999px;
+  --radius-sm: var(--r-s);
+  --radius-md: var(--r-m);
+  --radius-lg: var(--r-l);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 24px rgba(201, 243, 29, 0.28);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --d-fast: 150ms;
+  --d-med: 300ms;
+  --d-slow: 600ms;
 }
 
 * {
@@ -38,11 +79,12 @@ body {
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -51,9 +93,11 @@ a {
 }
 
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--accent);
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--pulse);
   outline-offset: 3px;
+  border-radius: 6px;
 }
 
 img {
@@ -66,15 +110,23 @@ img {
   margin-inline: auto;
 }
 
+@media (max-width: 767px) {
+  .container {
+    width: min(var(--max-width), 100% - 32px);
+  }
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--pulse);
+  color: var(--pulse-ink);
   padding: var(--space-2) var(--space-4);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  border-radius: 0 0 var(--r-s) var(--r-s);
   z-index: 100;
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 .skip-link:focus {
@@ -82,10 +134,49 @@ img {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--pulse);
+  color: var(--pulse-ink);
 }
 
+/* --- Стекло (DESIGN §1.4) --- */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-card);
+}
+
+/* --- Световая трасса / Pulse Trace (signature-элемент DESIGN §0) --- */
+.pulse-trace {
+  position: relative;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201, 243, 29, 0.55) 30%, var(--pulse) 50%, rgba(201, 243, 29, 0.55) 70%, transparent);
+  box-shadow: 0 0 18px rgba(201, 243, 29, 0.35);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pulse-trace::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 120px;
+  background: linear-gradient(90deg, transparent, rgba(242, 244, 247, 0.9), transparent);
+  opacity: 0.8;
+  transform: translateX(-130px);
+  animation: trace-pulse 3.2s linear infinite;
+}
+
+@keyframes trace-pulse {
+  to {
+    transform: translateX(calc(100vw));
+  }
+}
+
+/* Только transform/opacity везде; layout-анимации запрещены */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -95,5 +186,8 @@ img {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+  .pulse-trace::after {
+    display: none;
   }
 }
