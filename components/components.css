@@ -26,7 +26,7 @@
 .ap-muted { color: var(--ap-muted); }
 .ap-error { color: var(--ap-danger); margin: 0.25rem 0 0; }
 
-.ap-fieldset { border: 1px solid var(--ap-border); border-radius: var(--ap-radius); padding: 1rem; margin: 1rem 0; }
+.ap-fieldset { border: 1px solid var(--ap-border); border-radius: var(--ap-radius); padding: 1rem; margin: 1rem 0; min-width: 0; }
 .ap-fieldset legend { padding: 0 0.5rem; }
 
 .ap-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -57,24 +57,32 @@
 .ap-total { font-size: 1.6rem; font-weight: 800; }
 
 .ap-btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   background: var(--ap-accent); color: var(--ap-accent-text);
   border: 1px solid transparent; border-radius: 10px;
-  padding: 0.65rem 1.1rem; font-weight: 700; text-decoration: none; cursor: pointer;
+  padding: 0.65rem 1.1rem; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer;
+  min-height: 44px;
 }
 .ap-btn--ghost { background: transparent; color: var(--ap-text); border-color: var(--ap-border); }
 
 .ap-form { display: grid; gap: 0.9rem; margin-top: 1rem; }
-.ap-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.ap-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; align-items: start; }
 @media (max-width: 640px) { .ap-grid2 { grid-template-columns: 1fr; } }
-.ap-field { display: grid; gap: 0.35rem; }
+.ap-field { display: grid; gap: 0.35rem; min-width: 0; align-content: start; }
 .ap-field label { font-weight: 600; }
 .ap-field input, .ap-field select, .ap-field textarea {
+  width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box;
   background: var(--ap-surface-2); color: var(--ap-text);
   border: 1px solid var(--ap-border); border-radius: 10px; padding: 0.6rem 0.75rem;
+  line-height: 1.4; font-size: 16px; min-height: 44px;
 }
+.ap-field textarea { min-height: 88px; }
+.ap-field select { overflow-wrap: anywhere; }
+.ap-chip { min-height: 44px; }
+.ap-field small.ap-muted { min-height: 1.25rem; display: block; }
 .ap-check { grid-template-columns: auto 1fr; align-items: start; }
-.ap-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.2rem; }
+.ap-check input { width: 24px; height: 24px; min-height: 24px; margin-top: 0.2rem; flex-shrink: 0; accent-color: var(--ap-accent); }
+.ap-service input[type="checkbox"] { width: 24px; height: 24px; flex-shrink: 0; accent-color: var(--ap-accent); }
 
 .ap-success {
   display: grid; gap: 0.75rem; justify-items: start;
@@ -97,8 +105,8 @@
 
 .ap-contacts { display: grid; gap: 1rem; margin-top: 1rem; }
 .ap-contactlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
-.ap-contactlist li { display: flex; gap: 0.7rem; align-items: flex-start; }
-.ap-contactlist a { color: var(--ap-text); }
+.ap-contactlist li { display: flex; gap: 0.7rem; align-items: flex-start; min-width: 0; }
+.ap-contactlist a { color: var(--ap-text); min-height: 44px; display: inline-flex; align-items: center; overflow-wrap: anywhere; }
 .ap-messengers { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .ap-map { border: 1px dashed var(--ap-border); border-radius: var(--ap-radius); padding: 1.25rem; background: var(--ap-surface-2); }
 .ap-map__inner { display: grid; gap: 0.5rem; justify-items: start; }
@@ -111,4 +119,12 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .ap-block * { transition: none !important; animation: none !important; }
+}
+
+@media (max-width: 640px) {
+  .ap-block { padding: 1rem; overflow-wrap: anywhere; }
+  .ap-btn { width: 100%; }
+  .ap-result { flex-direction: column; align-items: stretch; }
+  .ap-chips { display: grid; grid-template-columns: 1fr; }
+  .ap-messengers { display: grid; grid-template-columns: 1fr; }
 }

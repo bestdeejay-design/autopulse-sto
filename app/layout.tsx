@@ -33,6 +33,13 @@ const mono = JetBrains_Mono({
   variable: "--font-mono-next"
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover" as const,
+  themeColor: "#0a0c10"
+};
+
 export const metadata: Metadata = {
   title: "АвтоПульс — СТО полного цикла в Москве",
   description:

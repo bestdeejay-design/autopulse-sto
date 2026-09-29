@@ -64,6 +64,10 @@
 }
 
 .cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   background: var(--accent);
   color: var(--accent-ink);
   font-weight: 700;

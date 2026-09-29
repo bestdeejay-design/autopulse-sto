@@ -12,6 +12,11 @@
   display: grid;
   gap: var(--space-8);
   align-items: center;
+  min-width: 0;
+}
+
+.heroInner > * {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -326,6 +331,8 @@
   display: grid;
   gap: var(--space-4);
   align-items: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
   border: 1px solid var(--line);
   border-radius: var(--r-l);
   padding: var(--space-6);
@@ -385,7 +392,8 @@
 
 @media (max-width: 767px) {
   .title {
-    font-size: 40px;
+    font-size: 32px;
+    overflow-wrap: break-word;
   }
   .subtitle {
     font-size: 17px;

@@ -85,6 +85,15 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Мобайл: гасим горизонтальный скролл, grid-дети не распирают (375px) */
+main,
+section,
+div,
+fieldset {
+  min-width: 0;
 }
 
 a {
